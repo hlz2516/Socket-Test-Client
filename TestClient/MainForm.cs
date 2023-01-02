@@ -56,5 +56,10 @@ namespace TestClient
             }
             testForm.Show();
         }
+
+        private void Item_Setup_Personal_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

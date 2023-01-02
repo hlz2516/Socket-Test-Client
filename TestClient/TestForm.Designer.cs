@@ -44,7 +44,7 @@
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(846, 530);
+            this.tabControl1.Size = new System.Drawing.Size(846, 551);
             this.tabControl1.TabIndex = 0;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -54,18 +54,18 @@
             this.Item_NewTest,
             this.Item_DelPage});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 70);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(137, 48);
             // 
             // Item_NewTest
             // 
             this.Item_NewTest.Name = "Item_NewTest";
-            this.Item_NewTest.Size = new System.Drawing.Size(180, 22);
+            this.Item_NewTest.Size = new System.Drawing.Size(136, 22);
             this.Item_NewTest.Text = "新建测试";
             // 
             // Item_DelPage
             // 
             this.Item_DelPage.Name = "Item_DelPage";
-            this.Item_DelPage.Size = new System.Drawing.Size(180, 22);
+            this.Item_DelPage.Size = new System.Drawing.Size(136, 22);
             this.Item_DelPage.Text = "删除当前页";
             this.Item_DelPage.Click += new System.EventHandler(this.Item_DelPage_Click);
             // 
@@ -73,7 +73,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(846, 530);
+            this.ClientSize = new System.Drawing.Size(846, 551);
             this.ControlBox = false;
             this.Controls.Add(this.tabControl1);
             this.Name = "TestForm";

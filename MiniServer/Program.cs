@@ -1,10 +1,13 @@
 ﻿using System.Net;
 using System.Net.Sockets;
+using System.Text;
 
 namespace MiniServer
 {
     public class Program
     {
+        private static readonly string PREFIX = "||";
+
         public static  void Main()
         {
             IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
@@ -40,20 +43,53 @@ namespace MiniServer
             {
                 while (true)
                 {
-                    // Receive message.
-                    var buffer = new byte[1024];
-                    int? bytes = client?.Receive(buffer, SocketFlags.None);
-                    if (bytes > 0)
+                    int? bufCnt = client?.Available;
+                    if (bufCnt.HasValue)
                     {
-                        client?.Send(buffer, 0);
+                        if (bufCnt > 0)
+                        {
+                            //message,ex:"||10helloworld"
+                            //"||"is a prefix, 10 means content length,it has 8 bytes
+                            byte[] prefixBuf = new byte[2];
+                            int? bytes = client?.Receive(prefixBuf, SocketFlags.None);
+                            if (bytes > 0)
+                            {
+                                string prefix = Encoding.UTF8.GetString(prefixBuf);
+                                if (prefix == PREFIX)
+                                {
+                                    byte[] lenBuf = new byte[8];
+                                    client?.Receive(lenBuf, SocketFlags.None);
+                                    long len = BitConverter.ToInt64(lenBuf);
+                                    byte[] buf = new byte[len];
+                                    client?.Receive(buf, SocketFlags.None);
+                                    byte[] sendBuf = prefixBuf.Concat(lenBuf).Concat(buf).ToArray();
+                                    client?.Send(sendBuf, SocketFlags.None);
+                                }
+                                else
+                                {
+                                    //clear receive buffer
+                                    while (client?.Available > 0)
+                                    {
+                                        byte[]? tmpbuf = new byte[10240];
+                                        client?.Receive(tmpbuf, SocketFlags.None);
+                                        tmpbuf = null;
+                                    }
+                                }
+                            }
+                            else if (bytes == 0)
+                            {
+                                Console.WriteLine("client:" + client?.RemoteEndPoint?.ToString() + " has disconnected");
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            Thread.Sleep(100);
+                            continue;
+                        }
                     }
-                    else if (bytes == 0)
-                    {
-                        Console.WriteLine("client:" + client?.RemoteEndPoint?.ToString() + " has disconnected");
-                        break;
-                    }
-                    Thread.Sleep(100);
                 }
+                client?.Close();
             }
             catch (Exception)
             {

@@ -31,6 +31,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ServerSetup_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Item_Setup_Personal = new System.Windows.Forms.ToolStripMenuItem();
             this.Test_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SendFirst_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ReceiveFirst_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -53,7 +54,8 @@
             // 设置ToolStripMenuItem
             // 
             this.设置ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ServerSetup_ToolStripMenuItem});
+            this.ServerSetup_ToolStripMenuItem,
+            this.Item_Setup_Personal});
             this.设置ToolStripMenuItem.Name = "设置ToolStripMenuItem";
             this.设置ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
             this.设置ToolStripMenuItem.Text = "设置";
@@ -64,6 +66,13 @@
             this.ServerSetup_ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.ServerSetup_ToolStripMenuItem.Text = "远程服务器设置";
             this.ServerSetup_ToolStripMenuItem.Click += new System.EventHandler(this.ServerSetup_ToolStripMenuItem_Click);
+            // 
+            // Item_Setup_Personal
+            // 
+            this.Item_Setup_Personal.Name = "Item_Setup_Personal";
+            this.Item_Setup_Personal.Size = new System.Drawing.Size(160, 22);
+            this.Item_Setup_Personal.Text = "本地个性化设置";
+            this.Item_Setup_Personal.Click += new System.EventHandler(this.Item_Setup_Personal_Click);
             // 
             // Test_ToolStripMenuItem
             // 
@@ -105,7 +114,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(984, 561);
+            this.ClientSize = new System.Drawing.Size(984, 581);
             this.Controls.Add(this.menuStrip1);
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
@@ -129,5 +138,6 @@
         private ToolStripMenuItem ReceiveFirst_ToolStripMenuItem;
         private ToolStripMenuItem SendFirstUDPToolStripMenuItem;
         private ToolStripMenuItem ReceiveFirstUDPToolStripMenuItem;
+        private ToolStripMenuItem Item_Setup_Personal;
     }
 }

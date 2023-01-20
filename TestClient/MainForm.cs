@@ -1,3 +1,5 @@
+using TestClient.Pages.FuncTest;
+
 namespace TestClient
 {
     public partial class MainForm : Form
@@ -43,7 +45,7 @@ namespace TestClient
                 testPageContainer.Dock = DockStyle.Fill;
                 tabPage.Controls.Add(testPageContainer);
 
-                var tcpSendFirstPage = new Pages.TCPSendFirstPage();
+                var tcpSendFirstPage = new TCPSendFirstPage();
                 tcpSendFirstPage.Location = new Point(0, 0);
                 tcpSendFirstPage.Dock = DockStyle.Fill;
                 tcpSendFirstPage.FormBorderStyle = FormBorderStyle.None;
@@ -60,6 +62,14 @@ namespace TestClient
         private void Item_Setup_Personal_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void Test_ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (testForm != null)
+            {
+                testForm.Show();
+            }
         }
     }
 }

@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using TestClient.Pages.FuncTest;
 
 namespace TestClient
 {
@@ -15,7 +6,7 @@ namespace TestClient
     {
         private TabPage tabPage;
         private Panel testPageContainer;
-        private Pages.TCPSendFirstPage tcpSendFirstPage;
+        private TCPSendFirstPage tcpSendFirstPage;
 
         public TestForm()
         {
@@ -33,7 +24,7 @@ namespace TestClient
             testPageContainer.Dock = DockStyle.Fill;
             tabPage.Controls.Add(testPageContainer);
 
-            tcpSendFirstPage = new Pages.TCPSendFirstPage();
+            tcpSendFirstPage = new TCPSendFirstPage();
             tcpSendFirstPage.Location = new Point(0, 0);
             tcpSendFirstPage.Dock = DockStyle.Fill;
             tcpSendFirstPage.FormBorderStyle = FormBorderStyle.None;

@@ -32,11 +32,13 @@
             this.设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ServerSetup_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Item_Setup_Personal = new System.Windows.Forms.ToolStripMenuItem();
-            this.Test_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.FuncTest_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SendFirst_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ReceiveFirst_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.SendFirstUDPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ReceiveFirstUDPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SendUDP_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.RecvUDP_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.PressTest_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.TCPTest_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -44,7 +46,8 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.设置ToolStripMenuItem,
-            this.Test_ToolStripMenuItem});
+            this.FuncTest_ToolStripMenuItem,
+            this.PressTest_ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(984, 25);
@@ -74,41 +77,56 @@
             this.Item_Setup_Personal.Text = "本地个性化设置";
             this.Item_Setup_Personal.Click += new System.EventHandler(this.Item_Setup_Personal_Click);
             // 
-            // Test_ToolStripMenuItem
+            // FuncTest_ToolStripMenuItem
             // 
-            this.Test_ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.FuncTest_ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.SendFirst_ToolStripMenuItem,
             this.ReceiveFirst_ToolStripMenuItem,
-            this.SendFirstUDPToolStripMenuItem,
-            this.ReceiveFirstUDPToolStripMenuItem});
-            this.Test_ToolStripMenuItem.Name = "Test_ToolStripMenuItem";
-            this.Test_ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
-            this.Test_ToolStripMenuItem.Text = "测试";
+            this.SendUDP_ToolStripMenuItem,
+            this.RecvUDP_ToolStripMenuItem});
+            this.FuncTest_ToolStripMenuItem.Name = "FuncTest_ToolStripMenuItem";
+            this.FuncTest_ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
+            this.FuncTest_ToolStripMenuItem.Text = "功能测试";
+            this.FuncTest_ToolStripMenuItem.Click += new System.EventHandler(this.Test_ToolStripMenuItem_Click);
             // 
             // SendFirst_ToolStripMenuItem
             // 
             this.SendFirst_ToolStripMenuItem.Name = "SendFirst_ToolStripMenuItem";
-            this.SendFirst_ToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.SendFirst_ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.SendFirst_ToolStripMenuItem.Text = "先发后收(TCP)";
             this.SendFirst_ToolStripMenuItem.Click += new System.EventHandler(this.SendFirst_ToolStripMenuItem_Click);
             // 
             // ReceiveFirst_ToolStripMenuItem
             // 
             this.ReceiveFirst_ToolStripMenuItem.Name = "ReceiveFirst_ToolStripMenuItem";
-            this.ReceiveFirst_ToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.ReceiveFirst_ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.ReceiveFirst_ToolStripMenuItem.Text = "先收后发(TCP)";
             // 
-            // SendFirstUDPToolStripMenuItem
+            // SendUDP_ToolStripMenuItem
             // 
-            this.SendFirstUDPToolStripMenuItem.Name = "SendFirstUDPToolStripMenuItem";
-            this.SendFirstUDPToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
-            this.SendFirstUDPToolStripMenuItem.Text = "先发后收(UDP)";
+            this.SendUDP_ToolStripMenuItem.Name = "SendUDP_ToolStripMenuItem";
+            this.SendUDP_ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.SendUDP_ToolStripMenuItem.Text = "UDP发送";
             // 
-            // ReceiveFirstUDPToolStripMenuItem
+            // RecvUDP_ToolStripMenuItem
             // 
-            this.ReceiveFirstUDPToolStripMenuItem.Name = "ReceiveFirstUDPToolStripMenuItem";
-            this.ReceiveFirstUDPToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
-            this.ReceiveFirstUDPToolStripMenuItem.Text = "先收后发(UDP)";
+            this.RecvUDP_ToolStripMenuItem.Name = "RecvUDP_ToolStripMenuItem";
+            this.RecvUDP_ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.RecvUDP_ToolStripMenuItem.Text = "UDP接收";
+            // 
+            // PressTest_ToolStripMenuItem
+            // 
+            this.PressTest_ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.TCPTest_ToolStripMenuItem});
+            this.PressTest_ToolStripMenuItem.Name = "PressTest_ToolStripMenuItem";
+            this.PressTest_ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
+            this.PressTest_ToolStripMenuItem.Text = "压力测试";
+            // 
+            // TCPTest_ToolStripMenuItem
+            // 
+            this.TCPTest_ToolStripMenuItem.Name = "TCPTest_ToolStripMenuItem";
+            this.TCPTest_ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.TCPTest_ToolStripMenuItem.Text = "TCP先发后收";
             // 
             // MainForm
             // 
@@ -133,11 +151,13 @@
         private MenuStrip menuStrip1;
         private ToolStripMenuItem 设置ToolStripMenuItem;
         private ToolStripMenuItem ServerSetup_ToolStripMenuItem;
-        private ToolStripMenuItem Test_ToolStripMenuItem;
+        private ToolStripMenuItem FuncTest_ToolStripMenuItem;
         private ToolStripMenuItem SendFirst_ToolStripMenuItem;
         private ToolStripMenuItem ReceiveFirst_ToolStripMenuItem;
-        private ToolStripMenuItem SendFirstUDPToolStripMenuItem;
-        private ToolStripMenuItem ReceiveFirstUDPToolStripMenuItem;
+        private ToolStripMenuItem SendUDP_ToolStripMenuItem;
+        private ToolStripMenuItem RecvUDP_ToolStripMenuItem;
         private ToolStripMenuItem Item_Setup_Personal;
+        private ToolStripMenuItem PressTest_ToolStripMenuItem;
+        private ToolStripMenuItem TCPTest_ToolStripMenuItem;
     }
 }

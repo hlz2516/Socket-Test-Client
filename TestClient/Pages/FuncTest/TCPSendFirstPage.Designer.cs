@@ -1,4 +1,4 @@
-﻿namespace TestClient.Pages
+﻿namespace TestClient.Pages.FuncTest
 {
     partial class TCPSendFirstPage
     {
@@ -105,7 +105,6 @@
             this.lbl_AvgOneTripTime = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.lbl_SendTxtChTotal = new System.Windows.Forms.Label();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -308,6 +307,7 @@
             0,
             0});
             this.numericUpDown3.Visible = false;
+            this.numericUpDown3.ValueChanged += new System.EventHandler(this.numericUpDown3_ValueChanged);
             // 
             // numericUpDown2
             // 
@@ -321,6 +321,7 @@
             0,
             0});
             this.numericUpDown2.Visible = false;
+            this.numericUpDown2.ValueChanged += new System.EventHandler(this.numericUpDown2_ValueChanged);
             // 
             // numericUpDown1
             // 
@@ -334,6 +335,7 @@
             0,
             0});
             this.numericUpDown1.Visible = false;
+            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
             // rbtn_DataLen_Send3
             // 
@@ -390,6 +392,7 @@
             this.cbb_DHType3.Name = "cbb_DHType3";
             this.cbb_DHType3.Size = new System.Drawing.Size(121, 25);
             this.cbb_DHType3.TabIndex = 10;
+            this.cbb_DHType3.SelectedIndexChanged += new System.EventHandler(this.cbb_DHType3_SelectedIndexChanged);
             // 
             // txt_DHVal2
             // 
@@ -416,6 +419,7 @@
             this.cbb_DHType2.Name = "cbb_DHType2";
             this.cbb_DHType2.Size = new System.Drawing.Size(121, 25);
             this.cbb_DHType2.TabIndex = 8;
+            this.cbb_DHType2.SelectedIndexChanged += new System.EventHandler(this.cbb_DHType2_SelectedIndexChanged);
             // 
             // label16
             // 
@@ -487,6 +491,7 @@
             this.cbb_DHType1.Name = "cbb_DHType1";
             this.cbb_DHType1.Size = new System.Drawing.Size(121, 25);
             this.cbb_DHType1.TabIndex = 1;
+            this.cbb_DHType1.SelectedIndexChanged += new System.EventHandler(this.cbb_DHType1_SelectedIndexChanged);
             // 
             // label11
             // 
@@ -1069,7 +1074,6 @@
         private RadioButton rbtn_DataLen_Recv3;
         private RadioButton rbtn_DataLen_Recv2;
         private RadioButton rbtn_DataLen_Recv1;
-        private ToolTip toolTip1;
         private NumericUpDown numericUpDown3;
         private NumericUpDown numericUpDown2;
         private NumericUpDown numericUpDown1;

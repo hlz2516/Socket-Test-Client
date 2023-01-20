@@ -8,7 +8,7 @@ namespace MiniServer
     {
         private static readonly string PREFIX = "||";
 
-        public static  void Main()
+        public static void Main()
         {
             IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
             IPAddress ipAddress = IPAddress.Loopback;
@@ -46,37 +46,43 @@ namespace MiniServer
                     int? bufCnt = client?.Available;
                     if (bufCnt.HasValue)
                     {
+                        #region logic
                         if (bufCnt > 0)
                         {
-                            //message,ex:"||10helloworld"
-                            //"||"is a prefix, 10 means content length,it has 8 bytes
-                            byte[] prefixBuf = new byte[2];
-                            int? bytes = client?.Receive(prefixBuf, SocketFlags.None);
-                            if (bytes > 0)
+                            //message,ex:"10helloworld"
+                            //10 means content length,it has 8 bytes
+                            byte[] lenBuf = new byte[8];
+                            int? length = client?.Receive(lenBuf, SocketFlags.None);
+                            if (length > 0)
                             {
-                                string prefix = Encoding.UTF8.GetString(prefixBuf);
-                                if (prefix == PREFIX)
+                                //string prefix = Encoding.UTF8.GetString(prefixBuf);
+                                //if (prefix == PREFIX)
+                                //{
+                                long len = BitConverter.ToInt64(lenBuf);
+                                long received = 0;
+                                byte[] buffer = new byte[len];
+                                while (len > 0)
                                 {
-                                    byte[] lenBuf = new byte[8];
-                                    client?.Receive(lenBuf, SocketFlags.None);
-                                    long len = BitConverter.ToInt64(lenBuf);
-                                    byte[] buf = new byte[len];
-                                    client?.Receive(buf, SocketFlags.None);
-                                    byte[] sendBuf = prefixBuf.Concat(lenBuf).Concat(buf).ToArray();
-                                    client?.Send(sendBuf, SocketFlags.None);
+                                    int? tmpLen = client?.Receive(buffer, (int)received, (int)(len - received), SocketFlags.None);
+                                    received += (int)tmpLen;
+                                    len -= (int)tmpLen;
                                 }
-                                else
-                                {
-                                    //clear receive buffer
-                                    while (client?.Available > 0)
-                                    {
-                                        byte[]? tmpbuf = new byte[10240];
-                                        client?.Receive(tmpbuf, SocketFlags.None);
-                                        tmpbuf = null;
-                                    }
-                                }
+                                Console.WriteLine("len:" + received + ",content:" + Encoding.Unicode.GetString(buffer));
+                                byte[] sendBuf = lenBuf.Concat(buffer).ToArray();
+                                client?.Send(sendBuf,SocketFlags.None);
+                                //}
+                                //else
+                                //{
+                                //    //clear receive buffer
+                                //    while (client?.Available > 0)
+                                //    {
+                                //        byte[]? tmpbuf = new byte[10240];
+                                //        client?.Receive(tmpbuf, SocketFlags.None);
+                                //        tmpbuf = null;
+                                //    }
+                                //}
                             }
-                            else if (bytes == 0)
+                            else if (length == 0)
                             {
                                 Console.WriteLine("client:" + client?.RemoteEndPoint?.ToString() + " has disconnected");
                                 break;
@@ -87,6 +93,10 @@ namespace MiniServer
                             Thread.Sleep(100);
                             continue;
                         }
+                        #endregion
+                        //byte[] buf = new byte[1024];
+                        //client?.Receive(buf, SocketFlags.None);
+                        //client?.Send(buf, SocketFlags.None);
                     }
                 }
                 client?.Close();

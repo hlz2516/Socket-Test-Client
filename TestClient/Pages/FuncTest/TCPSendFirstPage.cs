@@ -3,7 +3,7 @@ using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace TestClient.Pages
+namespace TestClient.Pages.FuncTest
 {
     public partial class TCPSendFirstPage : Form
     {
@@ -242,9 +242,16 @@ namespace TestClient.Pages
                             dataLen = (int)BitConverter.ToInt64(dhBytes3);
                         }
                     }
+                    else
+                    {
+                        break;
+                    }
                     byte[] bytes = new byte[dataLen];
-                    client?.Receive(bytes, SocketFlags.None);
-
+                    int? len = client?.Receive(bytes, SocketFlags.None);
+                    if (len == 0)
+                    {
+                        break;
+                    }
                     Invoke(new Action(() =>
                     {
                         stopwatch.Stop();
@@ -637,6 +644,36 @@ namespace TestClient.Pages
                 }
             }
             return choosedDataHead;
+        }
+
+        private void cbb_DHType1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cbb_DHType4.SelectedIndex = cbb_DHType1.SelectedIndex;
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            numericUpDown4.Value = numericUpDown1.Value;
+        }
+
+        private void cbb_DHType2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cbb_DHType5.SelectedIndex = cbb_DHType2.SelectedIndex;
+        }
+
+        private void numericUpDown2_ValueChanged(object sender, EventArgs e)
+        {
+            numericUpDown5.Value = numericUpDown2.Value;
+        }
+
+        private void cbb_DHType3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cbb_DHType6.SelectedIndex = cbb_DHType3.SelectedIndex;
+        }
+
+        private void numericUpDown3_ValueChanged(object sender, EventArgs e)
+        {
+            numericUpDown6.Value = numericUpDown3.Value;
         }
     }
 }

@@ -7,7 +7,7 @@ namespace TestClient.Pages.FuncTest
 {
     public partial class TCPSendFirstPage : Form
     {
-        event System.EventHandler Received;
+        event EventHandler Received;
 
         private readonly int ONE_TRIP_AVG_CYCLE = 100;
 
@@ -50,8 +50,8 @@ namespace TestClient.Pages.FuncTest
             InitializeComponent();
 
             cbb_DHType1.SelectedIndexChanged += (o, e) =>
-            { 
-                numericUpDown1.Visible = cbb_DHType1.Text == "string" ? true : false; 
+            {
+                numericUpDown1.Visible = cbb_DHType1.Text == "string" ? true : false;
             };
             cbb_DHType2.SelectedIndexChanged += (o, e) =>
             {
@@ -182,8 +182,8 @@ namespace TestClient.Pages.FuncTest
                         Thread.Sleep(30);
                         continue;
                     }
-                    string cbb_DHType4Text="", cbb_DHType5Text="", cbb_DHType6Text = "";
-                    int numUpDown4=0, numUpDown5=0, numUpDown6 = 0;
+                    string cbb_DHType4Text = "", cbb_DHType5Text = "", cbb_DHType6Text = "";
+                    int numUpDown4 = 0, numUpDown5 = 0, numUpDown6 = 0;
                     Invoke(new Action(() =>
                     {
                         cbb_DHType4Text = cbb_DHType4.Text;
@@ -226,7 +226,7 @@ namespace TestClient.Pages.FuncTest
                         }
                     }));
                     int dataLen = client.Available;
-                    int dataLenHead = GetChoosedDataHeadOfContentLength(1);
+                    int dataLenHead = GetChoosedDataHeadOfContentLength();
                     if (dataLenHead > 0)
                     {
                         if (dataLenHead == 1)
@@ -246,6 +246,7 @@ namespace TestClient.Pages.FuncTest
                     {
                         break;
                     }
+
                     byte[] bytes = new byte[dataLen];
                     int? len = client?.Receive(bytes, SocketFlags.None);
                     if (len == 0)
@@ -262,12 +263,12 @@ namespace TestClient.Pages.FuncTest
                         Invoke(new Action(() =>
                         {
                             double elapsedMsecs = stopwatch.Elapsed.TotalMilliseconds;
-                                //显示单次往返用时
+                            //显示单次往返用时
                             lbl_OneTripTime.Text = elapsedMsecs.ToString("#.##");
-                                //更新平均往返用时累计
+                            //更新平均往返用时累计
                             accumMillsecs += elapsedMsecs;
                             count++;
-                                //如果达到累计周期则计算并显示平均往返用时
+                            //如果达到累计周期则计算并显示平均往返用时
                             if (count == ONE_TRIP_AVG_CYCLE)
                             {
                                 double avgElaMsecs = accumMillsecs / count;
@@ -466,7 +467,7 @@ namespace TestClient.Pages.FuncTest
             lbl_SendTxtChTotal.Text = bytes.Length.ToString();
         }
 
-        private byte[] ConvertDataHeadValueToBytes(string type, string text,int length=20)
+        private byte[] ConvertDataHeadValueToBytes(string type, string text, int length = 20)
         {
             byte[] bytes = new byte[0];
             if (string.IsNullOrEmpty(type))
@@ -606,42 +607,23 @@ namespace TestClient.Pages.FuncTest
             }
         }
         /// <summary>
-        /// 获取用户指定哪个数据头项作为数据长度
+        /// 获取用户指定哪个数据头项作为数据长度，仅在设置接收数据头时有效
         /// </summary>
-        /// <param name="direction">0：发送方向；1：接收方向</param>
         /// <returns>0：未指定  1：第一项  2：第二项  3：第三项</returns>
-        private int GetChoosedDataHeadOfContentLength(int direction)
+        private int GetChoosedDataHeadOfContentLength()
         {
             int choosedDataHead = 0;
-            if (direction == 0)
+            if (rbtn_DataLen_Recv1.Checked)
             {
-                if (rbtn_DataLen_Send1.Checked)
-                {
-                    choosedDataHead = 1;
-                }
-                else if (rbtn_DataLen_Send2.Checked)
-                {
-                    choosedDataHead = 2;
-                }
-                else if (rbtn_DataLen_Send3.Checked)
-                {
-                    choosedDataHead = 3;
-                }
+                choosedDataHead = 1;
             }
-            else if (direction == 1)
+            else if (rbtn_DataLen_Recv2.Checked)
             {
-                if (rbtn_DataLen_Recv1.Checked)
-                {
-                    choosedDataHead = 1;
-                }
-                else if (rbtn_DataLen_Recv2.Checked)
-                {
-                    choosedDataHead = 2;
-                }
-                else if (rbtn_DataLen_Recv3.Checked)
-                {
-                    choosedDataHead = 3;
-                }
+                choosedDataHead = 2;
+            }
+            else if (rbtn_DataLen_Recv3.Checked)
+            {
+                choosedDataHead = 3;
             }
             return choosedDataHead;
         }

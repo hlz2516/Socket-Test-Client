@@ -47,9 +47,6 @@
             this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.rbtn_DataLen_Send3 = new System.Windows.Forms.RadioButton();
-            this.rbtn_DataLen_Send2 = new System.Windows.Forms.RadioButton();
-            this.rbtn_DataLen_Send1 = new System.Windows.Forms.RadioButton();
             this.txt_DHVal3 = new System.Windows.Forms.TextBox();
             this.cbb_DHType3 = new System.Windows.Forms.ComboBox();
             this.txt_DHVal2 = new System.Windows.Forms.TextBox();
@@ -275,9 +272,6 @@
             this.panel1.Controls.Add(this.numericUpDown3);
             this.panel1.Controls.Add(this.numericUpDown2);
             this.panel1.Controls.Add(this.numericUpDown1);
-            this.panel1.Controls.Add(this.rbtn_DataLen_Send3);
-            this.panel1.Controls.Add(this.rbtn_DataLen_Send2);
-            this.panel1.Controls.Add(this.rbtn_DataLen_Send1);
             this.panel1.Controls.Add(this.txt_DHVal3);
             this.panel1.Controls.Add(this.cbb_DHType3);
             this.panel1.Controls.Add(this.txt_DHVal2);
@@ -336,36 +330,6 @@
             0});
             this.numericUpDown1.Visible = false;
             this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
-            // 
-            // rbtn_DataLen_Send3
-            // 
-            this.rbtn_DataLen_Send3.AutoSize = true;
-            this.rbtn_DataLen_Send3.Location = new System.Drawing.Point(212, 139);
-            this.rbtn_DataLen_Send3.Name = "rbtn_DataLen_Send3";
-            this.rbtn_DataLen_Send3.Size = new System.Drawing.Size(14, 13);
-            this.rbtn_DataLen_Send3.TabIndex = 14;
-            this.rbtn_DataLen_Send3.TabStop = true;
-            this.rbtn_DataLen_Send3.UseVisualStyleBackColor = true;
-            // 
-            // rbtn_DataLen_Send2
-            // 
-            this.rbtn_DataLen_Send2.AutoSize = true;
-            this.rbtn_DataLen_Send2.Location = new System.Drawing.Point(213, 78);
-            this.rbtn_DataLen_Send2.Name = "rbtn_DataLen_Send2";
-            this.rbtn_DataLen_Send2.Size = new System.Drawing.Size(14, 13);
-            this.rbtn_DataLen_Send2.TabIndex = 13;
-            this.rbtn_DataLen_Send2.TabStop = true;
-            this.rbtn_DataLen_Send2.UseVisualStyleBackColor = true;
-            // 
-            // rbtn_DataLen_Send1
-            // 
-            this.rbtn_DataLen_Send1.AutoSize = true;
-            this.rbtn_DataLen_Send1.Location = new System.Drawing.Point(213, 12);
-            this.rbtn_DataLen_Send1.Name = "rbtn_DataLen_Send1";
-            this.rbtn_DataLen_Send1.Size = new System.Drawing.Size(14, 13);
-            this.rbtn_DataLen_Send1.TabIndex = 12;
-            this.rbtn_DataLen_Send1.TabStop = true;
-            this.rbtn_DataLen_Send1.UseVisualStyleBackColor = true;
             // 
             // txt_DHVal3
             // 
@@ -1068,9 +1032,6 @@
         private ComboBox cbb_DHType4;
         private Label label22;
         private Label label24;
-        private RadioButton rbtn_DataLen_Send3;
-        private RadioButton rbtn_DataLen_Send2;
-        private RadioButton rbtn_DataLen_Send1;
         private RadioButton rbtn_DataLen_Recv3;
         private RadioButton rbtn_DataLen_Recv2;
         private RadioButton rbtn_DataLen_Recv1;

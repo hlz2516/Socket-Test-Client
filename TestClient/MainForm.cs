@@ -1,4 +1,5 @@
 using TestClient.Pages.FuncTest;
+using TestClient.Pages.PressTest;
 
 namespace TestClient
 {
@@ -70,6 +71,15 @@ namespace TestClient
             {
                 testForm.Show();
             }
+        }
+
+        private void TCPTest_ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.ActiveMdiChild != null)
+                this.ActiveMdiChild.Hide();
+            var TCPTestForm = new TCP_SetupPage();
+            TCPTestForm.MdiParent = this;
+            TCPTestForm.Show();
         }
     }
 }

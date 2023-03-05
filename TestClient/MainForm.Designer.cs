@@ -92,26 +92,26 @@
             // SendFirst_ToolStripMenuItem
             // 
             this.SendFirst_ToolStripMenuItem.Name = "SendFirst_ToolStripMenuItem";
-            this.SendFirst_ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.SendFirst_ToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.SendFirst_ToolStripMenuItem.Text = "先发后收(TCP)";
             this.SendFirst_ToolStripMenuItem.Click += new System.EventHandler(this.SendFirst_ToolStripMenuItem_Click);
             // 
             // ReceiveFirst_ToolStripMenuItem
             // 
             this.ReceiveFirst_ToolStripMenuItem.Name = "ReceiveFirst_ToolStripMenuItem";
-            this.ReceiveFirst_ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ReceiveFirst_ToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.ReceiveFirst_ToolStripMenuItem.Text = "先收后发(TCP)";
             // 
             // SendUDP_ToolStripMenuItem
             // 
             this.SendUDP_ToolStripMenuItem.Name = "SendUDP_ToolStripMenuItem";
-            this.SendUDP_ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.SendUDP_ToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.SendUDP_ToolStripMenuItem.Text = "UDP发送";
             // 
             // RecvUDP_ToolStripMenuItem
             // 
             this.RecvUDP_ToolStripMenuItem.Name = "RecvUDP_ToolStripMenuItem";
-            this.RecvUDP_ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.RecvUDP_ToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.RecvUDP_ToolStripMenuItem.Text = "UDP接收";
             // 
             // PressTest_ToolStripMenuItem
@@ -127,6 +127,7 @@
             this.TCPTest_ToolStripMenuItem.Name = "TCPTest_ToolStripMenuItem";
             this.TCPTest_ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.TCPTest_ToolStripMenuItem.Text = "TCP先发后收";
+            this.TCPTest_ToolStripMenuItem.Click += new System.EventHandler(this.TCPTest_ToolStripMenuItem_Click);
             // 
             // MainForm
             // 

@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Update="Pages\PressTest\PressTCPSetup.cs">
+    <Compile Update="Pages\PressTest\TCP_SetupPage.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>

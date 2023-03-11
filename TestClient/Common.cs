@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -71,6 +73,87 @@ namespace TestClient
                 }
             }
             return inUse;
+        }
+
+        public static byte[] ConvertDataHeadValueToBytes(string type, string text, int length = 20)
+        {
+            byte[] bytes = new byte[0];
+            if (string.IsNullOrEmpty(type))
+            {
+                return bytes;
+            }
+            switch (type)
+            {
+                case "Int16":
+                    short sVal;
+                    //若text为空或""，则自动执行else
+                    if (short.TryParse(text, out sVal))
+                    {
+                        bytes = BitConverter.GetBytes(sVal);
+                    }
+                    else bytes = new byte[2];
+                    break;
+                case "Int32":
+                    int iVal;
+                    if (int.TryParse(text, out iVal))
+                    {
+                        bytes = BitConverter.GetBytes(iVal);
+                    }
+                    else bytes = new byte[4];
+                    break;
+                case "Int64":
+                    long lVal;
+                    if (long.TryParse(text, out lVal))
+                    {
+                        bytes = BitConverter.GetBytes(lVal);
+                    }
+                    else bytes = new byte[8];
+                    break;
+                case "string":
+                    bytes = new byte[length];
+                    if (!string.IsNullOrEmpty(text))
+                    {
+                        Encoding.ASCII.GetBytes(text, bytes);
+                    }
+                    break;
+                default:
+                    break;
+            }
+            return bytes;
+        }
+
+        public static string ConvertBytesToDataHeadValue(string type, byte[] bytes)
+        {
+            if (string.IsNullOrEmpty(type))
+            {
+                return "";
+            }
+
+            string res = "";
+            try
+            {
+                switch (type)
+                {
+                    case "Int16":
+                        res = BitConverter.ToInt16(bytes).ToString();
+                        break;
+                    case "Int32":
+                        res = BitConverter.ToInt32(bytes).ToString();
+                        break;
+                    case "Int64":
+                        res = BitConverter.ToInt64(bytes).ToString();
+                        break;
+                    case "string":
+                        res = Encoding.ASCII.GetString(bytes);
+                        break;
+                }
+                return res;
+            }
+            catch (Exception e)
+            {
+                LogHelper.WriteLog("转换失败", e);
+                return "";
+            }
         }
     }
 }

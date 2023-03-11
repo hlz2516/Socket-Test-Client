@@ -20,6 +20,7 @@ namespace MiniServer
                     break;
                 }
             }
+            Console.WriteLine("sever ip:" + ipAddress.ToString());
             IPEndPoint ipEndPoint = new(ipAddress, 11000);
             //Console.WriteLine("server ip:" + ipEndPoint.ToString());
             Socket listener = new(
@@ -104,7 +105,6 @@ namespace MiniServer
             catch (Exception)
             {
                 client?.Close();
-                throw;
             }
         }
     }

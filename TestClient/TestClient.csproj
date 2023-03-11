@@ -9,9 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Update="Pages\PressTest\PressTCPSetup.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <PackageReference Include="log4net" Version="2.0.15" />
   </ItemGroup>
 
 </Project>

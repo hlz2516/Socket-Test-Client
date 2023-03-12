@@ -1,4 +1,5 @@
-﻿using TestClient.Pages.FuncTest;
+﻿using TestClient.Interfaces;
+using TestClient.Pages.FuncTest;
 
 namespace TestClient
 {
@@ -52,10 +53,10 @@ namespace TestClient
             List<TabPage> TCPsfPages = new List<TabPage>();
             foreach (TabPage p in tabControl1.TabPages)
             {
-                if (p.Name.StartsWith("TCPSendFirstPage"))
-                {
+                //if (p.Name.StartsWith("TCPSendFirstPage"))
+                //{
                     TCPsfPages.Add(p);
-                }
+                //}
             }
             TabPage? lastTPCsfPage = TCPsfPages.MaxBy((p) =>
             {
@@ -85,6 +86,12 @@ namespace TestClient
             int curIndex = tabControl1.SelectedIndex;
             tabControl1.TabPages.RemoveAt(curIndex);
             tabControl1.Update();
+        }
+
+        private void tabControl1_ControlRemoved(object sender, ControlEventArgs e)
+        {
+            ICloseThreads? close = e.Control as ICloseThreads;
+            close?.CloseThreads(); //关闭对应窗体时及时关闭线程
         }
     }
 }

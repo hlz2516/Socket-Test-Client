@@ -27,6 +27,10 @@ namespace TestClient
                 string remotePort = config.AppSettings.Settings["RemotePort"].Value;
                 RemoteAddress = new IPEndPoint(IPAddress.Parse(remoteIP), int.Parse(remotePort));
             }
+            else
+            {
+                RemoteAddress = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 6789);
+            }
         }
 
         public static void ConfigSet(string key,string value)

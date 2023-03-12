@@ -2,20 +2,22 @@
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Text;
+using TestClient.Interfaces;
 
 namespace TestClient.Pages.FuncTest
 {
-    public partial class TCPSendFirstPage : Form
+    public partial class TCPSendFirstPage : Form, ICloseThreads
     {
         private readonly int RECV_BUF_SIZE = 1024;
 
-        private Thread TcpThread;  //实时监控socket是否处于连接状态
-        private Thread RecvThread;
+        private Thread? TcpThread;  //实时监控socket是否处于连接状态
+        private Thread? RecvThread;
         private Socket? client = null;
-        private bool canRecv = true;  //控制socket接收线程是否结束
         private int _switch;
-        private string dataHead;
-        private string contentType;
+        private string? dataHead;
+        private string? contentType;
+        private bool breakRecv = true;//控制socket接收线程是否结束，窗体关闭时结束
+        private bool canRecv = false;  //控制是否接收，断开socket连接时无法接收
         /// <summary>
         /// 1:连接状态  0:断开连接状态
         /// </summary>
@@ -29,12 +31,14 @@ namespace TestClient.Pages.FuncTest
                     btn_Connect.Enabled = false;
                     btn_Disconnect.Enabled = true;
                     cbb_datahead.Enabled = false;
+                    btn_send.Enabled = true;
                 }
                 else if (_switch == 0)
                 {
                     btn_Connect.Enabled = true;
                     btn_Disconnect.Enabled = false;
                     cbb_datahead.Enabled = true;
+                    btn_send.Enabled = false;
                 }
             }
             get { return _switch; }
@@ -96,6 +100,7 @@ namespace TestClient.Pages.FuncTest
                 RecvThread.IsBackground = true;
                 RecvThread.Name = "RecvMsg";
                 RecvThread.Start();
+                canRecv = true;
             }
             catch (Exception ex)
             {
@@ -140,9 +145,16 @@ namespace TestClient.Pages.FuncTest
 
         private void ReceiveMessage()
         {
-            while (canRecv)
+            while (true)
             {
-                RecvAndUpdateUI();
+                if (canRecv)
+                {
+                    RecvAndUpdateUI();
+                }
+                if (breakRecv)
+                {
+                    break;
+                }
                 Thread.Sleep(100);
             }
         }
@@ -204,19 +216,10 @@ namespace TestClient.Pages.FuncTest
 
         private void btn_Disconnect_Click(object sender, EventArgs e)
         {
-            if (client?.Connected == true)
-            {
-                DeleteReceivedDescribed();
-                //Thread.Sleep(200);
-                client.Close();
-                client = null;
-                Switch = 0;
-            }
-        }
-
-        private void DeleteReceivedDescribed()
-        {
-
+            canRecv = false;
+            client?.Close();
+            client = null;
+            Switch = 0;
         }
 
         private void btn_send_Click(object sender, EventArgs e)
@@ -294,6 +297,17 @@ namespace TestClient.Pages.FuncTest
         private void cbb_content_type_SelectionChangeCommitted(object sender, EventArgs e)
         {
             contentType = cbb_content_type.Items[cbb_content_type.SelectedIndex].ToString();
+        }
+
+        private void rtxt_send_TextChanged(object sender, EventArgs e)
+        {
+            lbl_SendTxtChTotal.Text = rtxt_send.Text.Length.ToString();
+        }
+
+        public void CloseThreads()
+        {
+            client?.Close();
+            breakRecv = true;
         }
     }
 }

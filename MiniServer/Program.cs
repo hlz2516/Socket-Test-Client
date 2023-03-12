@@ -6,7 +6,9 @@ namespace MiniServer
 {
     public class Program
     {
-        private static readonly string PREFIX = "||";
+        //private static readonly string PREFIX = "||";
+        static Socket udpSock;
+        static EndPoint senderRemote;
 
         public static void Main()
         {
@@ -21,9 +23,19 @@ namespace MiniServer
                 }
             }
             Console.WriteLine("sever ip:" + ipAddress.ToString());
-            IPEndPoint ipEndPoint = new(ipAddress, 11000);
+
             //Console.WriteLine("server ip:" + ipEndPoint.ToString());
-            Socket listener = new(
+            //UDP
+            udpSock = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+            IPEndPoint sender = new IPEndPoint(IPAddress.Any, 0);
+            IPEndPoint endPoibnt = new(ipAddress, 12000);
+            senderRemote = (EndPoint)sender;
+            udpSock.Bind(endPoibnt);
+            Thread udpThread = new Thread(new ThreadStart(echo_udp));
+            udpThread.Start();
+            //TCP
+            IPEndPoint ipEndPoint = new(ipAddress, 11000);
+            Socket listener = new Socket(
                 ipEndPoint.AddressFamily,
                 SocketType.Stream,
                 ProtocolType.Tcp);
@@ -32,11 +44,34 @@ namespace MiniServer
             listener.Listen(100);
             while (true)
             {
-                ThreadPool.QueueUserWorkItem(echo, listener.Accept());
+                ThreadPool.QueueUserWorkItem(echo_tcp, listener.Accept());
             }
         }
 
-        private static void echo(object? obj)
+        private static void echo_udp()
+        {
+            while (true)
+            {
+                try
+                {
+                    byte[] recvBytes = new byte[512];
+                    int count = udpSock.ReceiveFrom(recvBytes, SocketFlags.None, ref senderRemote);
+                    string content = Encoding.Unicode.GetString(recvBytes, 0, count);
+                    Console.WriteLine(content);
+                    Console.WriteLine("remote ip:" + senderRemote.ToString());
+                    udpSock.SendTo(recvBytes, senderRemote);
+                    Thread.Sleep(100);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                    udpSock.Close();
+                }
+            }
+
+        }
+
+        private static void echo_tcp(object? obj)
         {
             Socket client = obj as Socket;
             Console.WriteLine("client:" + client?.RemoteEndPoint?.ToString() + " has connected");
